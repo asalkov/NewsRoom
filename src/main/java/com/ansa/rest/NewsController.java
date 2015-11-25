@@ -4,14 +4,15 @@ import com.ansa.dto.Data;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-/**
- * Created by asalkov on 25.11.2015.
- */
+
+@RestController
+@RequestMapping(value = "/rest/news")
 public class NewsController {
     private static List<Data> dataList = new CopyOnWriteArrayList<Data>();
 

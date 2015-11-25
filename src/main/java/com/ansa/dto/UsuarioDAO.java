@@ -16,10 +16,12 @@ public class UsuarioDAO {
 
     //@Transactional
     public Usuario read(String username) {
-        for (Usuario details : this.details)
+        System.out.println("username to check:" + username);
+        for (Usuario details : this.details) {
+            System.out.println("details:" + details.getUsername());
             if (details.getUsername().equalsIgnoreCase(username))
                 return details;
-
+        }
         return null;
     }
 }

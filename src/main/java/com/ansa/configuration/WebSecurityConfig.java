@@ -2,6 +2,7 @@ package com.ansa.configuration;
 
 import com.ansa.configuration.xauth.CustomUserDetailsService;
 import com.ansa.configuration.xauth.XAuthTokenConfigurer;
+import com.ansa.usermanagement.USER_ROLE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/auth/**").permitAll()
-                .antMatchers("/rest/**").hasRole(CustomUserDetailsService.ROLE_USER);
+                .antMatchers("/rest/**").hasRole(USER_ROLE.GENERAL.name());
 
 
     }

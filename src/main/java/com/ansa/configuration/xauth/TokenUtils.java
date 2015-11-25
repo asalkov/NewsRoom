@@ -1,5 +1,6 @@
 package com.ansa.configuration.xauth;
 
+import com.ansa.usermanagement.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.codec.Hex;
 
@@ -16,6 +17,29 @@ public class TokenUtils {
         long expires = System.currentTimeMillis() + 1000L * 60 * 60;
         return userDetails.getUsername() + ":" + expires + ":" + computeSignature(userDetails, expires);
     }
+
+    public String createToken(User user){
+        long expires = System.currentTimeMillis() + 1000L * 60 * 60;
+        return user.getUsername() + ":" + expires + ":" + computeSignature(user, expires);
+
+    }
+
+    public String computeSignature(User user, long expires) {
+        StringBuilder signatureBuilder = new StringBuilder();
+        signatureBuilder.append(user.getUsername()).append(":");
+        signatureBuilder.append(expires).append(":");
+        signatureBuilder.append(user.getPassword()).append(":");
+        signatureBuilder.append(TokenUtils.MAGIC_KEY);
+
+        MessageDigest digest;
+        try {
+            digest = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+            throw new IllegalStateException("No MD5 algorithm available!");
+        }
+        return new String(Hex.encode(digest.digest(signatureBuilder.toString().getBytes())));
+    }
+
 
     public String computeSignature(UserDetails userDetails, long expires) {
         StringBuilder signatureBuilder = new StringBuilder();
