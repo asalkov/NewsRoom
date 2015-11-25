@@ -30,6 +30,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         SecurityConfigurer<DefaultSecurityFilterChain, HttpSecurity> securityConfigurerAdapter = new XAuthTokenConfigurer(userDetailsServiceBean());
         http.apply(securityConfigurerAdapter);
+
+        http.authorizeRequests()
+                .antMatchers("/auth/**").permitAll()
+                .antMatchers("/rest/**").hasRole(CustomUserDetailsService.ROLE_USER);
+
+
     }
 
     @Autowired

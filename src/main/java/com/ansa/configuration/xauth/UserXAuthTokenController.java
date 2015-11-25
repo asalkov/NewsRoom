@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @RestController
+@RequestMapping(value = "/auth")
 public class UserXAuthTokenController {
     private final TokenUtils tokenUtils = new TokenUtils();
     private final AuthenticationManager authenticationManager;
